@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kia Jacob — Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #7D9B76; --sage-light: #A8BFA3; --sage-pale: #D6E5D3;
+      --cream: #F7F4EE; --cream-dark: #EDE8DF;
+      --ink: #2C3227; --ink-soft: #4A5441; --muted: #8A9485; --accent: #5C7A55;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--ink); font-family: 'DM Mono', monospace; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: rgba(247,244,238,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--cream-dark); }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--sage); }
+
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 4rem; padding: 8rem 4rem 4rem; max-width: 1200px; margin: 0 auto; }
+    .hero-tag { display: inline-block; font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); border: 1px solid var(--sage-light); padding: 0.35rem 0.9rem; margin-bottom: 1.8rem; animation: fadeUp 0.5s ease 0s both; }
+    .hero-heading { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 1.0; color: var(--ink); margin-bottom: 1.5rem; animation: fadeUp 0.5s ease 0.1s both; }
+    .hero-heading em { font-style: italic; color: var(--sage); }
+    .hero-sub { font-size: 0.83rem; color: var(--ink-soft); max-width: 400px; margin-bottom: 2.5rem; line-height: 1.85; animation: fadeUp 0.5s ease 0.2s both; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.5s ease 0.3s both; }
+
+    .btn-dark { background: var(--ink); color: var(--cream); padding: 0.8rem 1.8rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--ink); transition: background 0.2s, transform 0.2s; display: inline-block; }
+    .btn-dark:hover { background: var(--sage); border-color: var(--sage); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--ink); padding: 0.8rem 1.8rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--sage-light); transition: border-color 0.2s, transform 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--sage); transform: translateY(-2px); }
+
+    .hero-cards { display: flex; flex-direction: column; gap: 1rem; animation: fadeUp 0.5s ease 0.4s both; }
+    .stat-card { background: var(--cream-dark); border: 1px solid var(--cream-dark); padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; transition: transform 0.2s, border-color 0.2s; }
+    .stat-card:hover { transform: translateX(6px); border-color: var(--sage-light); }
+    .stat-shape { width: 34px; height: 34px; flex-shrink: 0; background: var(--sage-pale); border: 1.5px solid var(--sage-light); }
+    .stat-shape.circle { border-radius: 50%; }
+    .stat-shape.diamond { transform: rotate(45deg); width: 24px; height: 24px; }
+    .stat-shape.bar { height: 12px; border-radius: 2px; }
+    .stat-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+    .stat-value { font-size: 0.85rem; color: var(--ink); }
+
+    .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--sage-light), transparent); }
+
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 6rem 4rem; }
+    .section-label { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::after { content: ''; display: block; width: 32px; height: 1px; background: var(--sage-light); }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); color: var(--ink); margin-bottom: 3rem; line-height: 1.1; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .project-card { background: white; border: 1px solid var(--cream-dark); padding: 2rem; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--sage-pale); transition: background 0.2s; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(44,50,39,0.07); border-color: var(--sage-light); }
+    .project-card:hover::before { background: var(--sage); }
+    .project-card.wide { grid-column: span 2; }
+    .project-card.placeholder { border: 1px dashed var(--sage-light); background: var(--cream); }
+    .project-number { font-size: 0.62rem; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.9rem; }
+    .project-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.2; }
+    .project-desc { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 1.4rem; line-height: 1.75; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--sage-pale); color: var(--accent); padding: 0.22rem 0.6rem; }
+    .tag.coming { background: var(--cream-dark); color: var(--muted); }
+
+    #about { background: var(--cream-dark); }
+    .about-grid { max-width: 1200px; margin: 0 auto; padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.9; margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--ink); font-weight: 500; }
+    .about-quote { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-style: italic; color: var(--ink); border-left: 3px solid var(--sage); padding-left: 1.5rem; margin: 2rem 0; line-height: 1.4; }
+    .fact-list { display: flex; flex-direction: column; }
+    .fact-item { padding: 1.1rem 1.25rem; border: 1px solid var(--cream-dark); border-bottom: none; background: var(--cream); display: flex; flex-direction: column; gap: 0.25rem; transition: border-color 0.2s; }
+    .fact-item:last-child { border-bottom: 1px solid var(--cream-dark); }
+    .fact-item:hover { border-color: var(--sage-light); }
+    .fact-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .fact-value { font-size: 0.8rem; color: var(--ink-soft); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .skill-item { padding: 1rem 1.25rem; border: 1px solid var(--cream-dark); background: white; display: flex; align-items: center; gap: 0.75rem; transition: border-color 0.2s, transform 0.2s; }
+    .skill-item:hover { border-color: var(--sage-light); transform: translateY(-2px); }
+    .skill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+    .skill-name { font-size: 0.75rem; color: var(--ink-soft); }
+
+    #contact { background: var(--ink); }
+    .contact-inner { max-width: 1200px; margin: 0 auto; padding: 6rem 4rem; text-align: center; }
+    #contact .section-label { justify-content: center; color: var(--sage-light); }
+    #contact .section-label::after { background: var(--sage); }
+    #contact .section-title { color: var(--cream); }
+    .contact-desc { font-size: 0.82rem; color: var(--muted); max-width: 460px; margin: 0 auto 2.5rem; line-height: 1.9; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .contact-link { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sage-light); text-decoration: none; border: 1px solid #3a3a38; padding: 0.8rem 1.8rem; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+    .contact-link:hover { border-color: var(--sage); color: var(--sage-pale); transform: translateY(-2px); }
+
+    footer { background: var(--ink); border-top: 1px solid #3a3a38; padding: 1.75rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.63rem; letter-spacing: 0.1em; color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-cards { display: none; }
+      .section-wrap, .about-grid, .contact-inner { padding: 4rem 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.wide { grid-column: span 1; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Kia Jacob</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div id="hero">
+    <div>
+      <div class="hero-tag">Data Analyst &nbsp;&middot;&nbsp; North Carolina &nbsp;&middot;&nbsp; Open to Work</div>
+      <h1 class="hero-heading">The data<br>tells its own<br><em>story.</em></h1>
+      <p class="hero-sub">I find patterns in chaotic systems, clean what's broken, and surface what actually matters. No narrative shaping. Just rigorous, honest analysis.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-dark">View Projects</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="stat-card">
+        <div class="stat-shape circle"></div>
+        <div><div class="stat-label">Focus Area</div><div class="stat-value">Fintech Data Analytics</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-shape diamond"></div>
+        <div><div class="stat-label">Certification</div><div class="stat-value">Google DA &middot; In Progress</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-shape bar"></div>
+        <div><div class="stat-label">Core Stack</div><div class="stat-value">SQL &middot; Python &middot; Power BI &middot; BigQuery</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-shape circle" style="background:transparent; border:1.5px dashed var(--sage-light);"></div>
+        <div><div class="stat-label">Cloud</div><div class="stat-value">Google Cloud &middot; Microsoft Azure</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="projects">
+    <div class="section-wrap">
+      <div class="section-label">Work</div>
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card wide">
+          <div class="project-number">01 &mdash; Featured</div>
+          <div class="project-title">Retail Stock Market Analyzer</div>
+          <p class="project-desc">End-to-end data pipeline analyzing 5 years of historical stock data across Target, Walmart, Costco, Kroger, and Ulta Beauty. Ingests raw market data via Python, loads into BigQuery, and runs advanced SQL analytics including moving averages, annualized volatility, beta calculations, and momentum signals using window functions. Built a Random Forest classifier with scikit-learn to predict daily price direction, with predictions stored back in BigQuery. Fully documented and version controlled on GitHub.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span><span class="tag">BigQuery</span><span class="tag">GCP</span><span class="tag">scikit-learn</span><span class="tag">Machine Learning</span><span class="tag">SQL</span><span class="tag">Window Functions</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">02</div>
+          <div class="project-title">HR Data Quality Monitoring System</div>
+          <p class="project-desc">Simulates an enterprise data quality pipeline on a messy HR dataset. Built a SQL-based validation framework that detects duplicates, enforces rule-based validation, logs audit results, and measures before/after cleanup impact. Includes staging tables, a validation rules catalog, duplicate detection views, a cleaned employee table, and an issue queue. Power BI visualizes duplicate rates, rule failures, cleanup impact, and governance workflow status.</p>
+          <div class="project-tags">
+            <span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">Data Quality</span><span class="tag">Data Governance</span><span class="tag">ETL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">03</div>
+          <div class="project-title">File Migration Automation</div>
+          <p class="project-desc">Wrote a batch script to automate bulk PDF-to-ODG file conversion for a Microsoft Publisher migration at work, eliminating hundreds of hours of manual effort. Expanded into broader file organization and duplicate case detection across a large SharePoint folder structure using SQLite.</p>
+          <div class="project-tags">
+            <span class="tag">Batch Scripting</span><span class="tag">Automation</span><span class="tag">SQLite</span><span class="tag">SharePoint</span>
+          </div>
+        </div>
+
+        <div class="project-card placeholder">
+          <div class="project-number">&middot;&middot;</div>
+          <div class="project-title" style="color:var(--muted);font-family:'DM Mono',monospace;font-size:0.95rem;">More coming soon</div>
+          <p class="project-desc" style="color:var(--muted);">Currently building projects in fraud detection, credit risk analysis, and financial data pipelines.</p>
+          <div class="project-tags"><span class="tag coming">In Progress</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">Background</div>
+        <h2 class="section-title">About Me</h2>
+        <p>I'm a career changer with a background in <strong>behavioral health</strong> who discovered a natural aptitude for data, automation, and problem solving. What started as curiosity turned into hands-on experience — from writing batch scripts that automated manual file conversions at work, to building end-to-end data pipelines using Python and Google Cloud.</p>
+        <p>I don't wait to be shown how to do something. I figure it out.</p>
+        <p>My background gave me a strong foundation in <strong>data-driven decision making</strong>, documentation, and identifying patterns in complex systems. I'm drawn to fintech because accuracy isn't optional and clean data isn't a nice-to-have.</p>
+        <div class="about-quote">"No narrative. Just data."</div>
+        <a href="#contact" class="btn-dark" style="display:inline-block;">Let's Talk</a>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:1rem;">At a Glance</div>
+        <div class="fact-list">
+          <div class="fact-item"><div class="fact-label">Certifications</div><div class="fact-value">CCST Networking (Passed) &middot; Google DA (In Progress) &middot; PL-300 (Planned)</div></div>
+          <div class="fact-item"><div class="fact-label">Education</div><div class="fact-value">M.S. Applied Behavior Analysis &middot; Capella University &middot; B.S. Psychology &middot; Eastern Michigan University &middot; Networking / IT &middot; Durham Technical Community College</div></div>
+          <div class="fact-item"><div class="fact-label">Cloud Platforms</div><div class="fact-value">Google Cloud Platform &middot; Microsoft Azure</div></div>
+          <div class="fact-item"><div class="fact-label">Previous Field</div><div class="fact-value">Behavioral Health — data-driven documentation and outcome tracking</div></div>
+          <div class="fact-item"><div class="fact-label">Currently Building</div><div class="fact-value">Fintech project portfolio &middot; SQL proficiency &middot; Power BI certification</div></div>
+          <div class="fact-item"><div class="fact-label">Location</div><div class="fact-value">North Carolina, United States</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="skills">
+    <div class="section-wrap">
+      <div class="section-label">Toolkit</div>
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">SQL</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Python</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Power BI</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Google BigQuery</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Google Cloud Platform</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Microsoft Azure</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Data Cleaning</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Data Visualization</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Root Cause Analysis</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">ETL Pipelines</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Bash Scripting</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">GitHub</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">SharePoint</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">scikit-learn</span></div>
+        <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">SQLite</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="contact">
+    <div class="contact-inner">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-desc">Open to entry-level data analyst roles, particularly in fintech. If the work is rigorous and the data is real, I'm interested.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/kia-jacob" target="_blank" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/L4Ng0dd3ssHQ" target="_blank" class="contact-link">GitHub</a>
+        <a href="mailto:kia.jacob.data@gmail.com" class="contact-link">Email</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Kia Jacob &middot; Data Analyst &middot; North Carolina</p>
+    <p>Built with intention. Designed without
